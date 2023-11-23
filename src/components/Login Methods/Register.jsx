@@ -12,6 +12,8 @@ const Register = () => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const termsAndCondition = e.target.terms.checked;
+        console.log(termsAndCondition);
         setRegError('')
         setSuccess('')
         if (password.length < 6) {
@@ -19,6 +21,9 @@ const Register = () => {
             return;
         } else if (!/[A-Z]/.test(password)) {
             setRegError("Your Password Should contain one UPPERCASE character")
+            return;
+        }else if (!termsAndCondition) {
+            setRegError("Accept our terms & Conditions");
             return;
         }
         const auth = getAuth(app);
@@ -55,7 +60,10 @@ const Register = () => {
                         }
                     </span>
                 </div>
-
+                        <div className="flex gap-3 justify-center items-center">
+                        <input type="checkbox" id='terms' name='terms'/>
+                         <label htmlFor="terms">Accept our <a className='text-blue-500' href="#">terms & condition</a></label> 
+                        </div>
                 <input className='btn btn-success' type="submit" value='Register' />
             </form>
             {
